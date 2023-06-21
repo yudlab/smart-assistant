@@ -1,0 +1,19 @@
+{
+    "settings": {
+        "timezone": "GMT"
+    },
+    "entries": {
+        "0": {
+            "type": "work",
+            "title": "Chase Green Ave - Chikezie",
+            "start": 1681757072,
+            "end": 1681759000
+        },
+        "1": {
+            "type": "training",
+            "title": "Autism and LD",
+            "start": 1681757072,
+            "end": 1681759000
+        }
+    }
+}

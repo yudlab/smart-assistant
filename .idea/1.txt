@@ -1,0 +1,7 @@
+1. Core
+2. NLP.js Basic Test
+3. Speech/Vocal: Websocket
+4. UI/Voice to Speech-Speech to text Websocket Connector
+5. UI/Chat Connector
+6. AskGPT?
+7. Automate training
