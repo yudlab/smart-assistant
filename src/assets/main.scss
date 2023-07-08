@@ -1,26 +1,6 @@
-* {
-  background-color: #34495e;
-  color: #ecf0f1;
-  box-sizing: content-box;
-  padding: 0;
-  margin: 0;
-}
 
-#app {
-  header {
-    position: fixed;
-    border: 1px solid #ecf0f1;
-    background-color: aliceblue;
-    min-height: 50vh;
-    width: 80vw;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 4rem;
-    nav {
-      display: flex;
-      flex-direction: column;
-    }
-  }
-}
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
 

@@ -5,3 +5,6 @@
 5. UI/Chat Connector
 6. AskGPT?
 7. Automate training
+
+https://heroicons.com/
+https://tailwindui.com/components/preview
