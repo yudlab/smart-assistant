@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "concurrently \"npm run dev_ui\" \"npm run dev_back\"",
     "dev_ui": "vite",
-    "dev_back": "nodemon ./backend/server.js",
+    "dev_back": "nodemon --watch backend ./backend/server.js",
     "build": "vite build",
     "preview": "vite preview",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore",
@@ -15,7 +15,9 @@
     "@google-cloud/local-auth": "^2.1.0",
     "@headlessui/vue": "^1.7.14",
     "@heroicons/vue": "^2.0.18",
+    "@luxdamore/vue-cursor-fx": "^1.6.2",
     "cors": "^2.8.5",
+    "dat.gui": "^0.7.9",
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
     "googleapis": "^105.0.0",
@@ -24,6 +26,7 @@
     "puppeteer": "^20.7.3",
     "sass": "^1.63.5",
     "vue": "^3.3.4",
+    "vue-facing-decorator": "^2.1.20",
     "vue-router": "^4.2.2"
   },
   "devDependencies": {

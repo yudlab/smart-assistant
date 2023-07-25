@@ -11,12 +11,15 @@
     </div>
   </form>
   <img :src="imageUrl" alt="img" class="fixed"/>
+  <Recorder />
 </template>
 
 <script setup>
   import { ref } from 'vue';
   const textQuery = ref('')
   import imageUrl from '@/assets/img/bg.jpg';
+  import Recorder from '@/components/Recorder.vue';
+
   const onSubmit = async (e) => {
     if(textQuery.value == "") {
       //record
