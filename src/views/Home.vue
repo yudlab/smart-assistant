@@ -1,6 +1,6 @@
 <template>
-  <form class="p-3" @submit.prevent="onSubmit">
-    <div class="flex items-center border-b border-teal-500 py-2">
+  <form class="p-5" @submit.prevent="onSubmit">
+    <div class="flex items-center">
       <input v-model="textQuery" class="text-teal-100 text-2xl appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none" type="text" placeholder="Ask me something" aria-label="Enter your search">
       <button class="text-2xl flex-shrink-0 bg-teal-500 hover:bg-teal-700 border-teal-500 hover:border-teal-700 text-sm border-4 text-white py-1 px-2 rounded" type="submit">
         {{ textQuery == "" ? "Record" : "Send" }}

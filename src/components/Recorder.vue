@@ -12,20 +12,20 @@ export default {
             HEIGHT: 400,
             ctx: null,
             opts: {
-                smoothing: 0.9,
-                fft: 9,
-                minDecibels: -70,
-                scale: 0.9,
-                glow: 50,
                 color1: [203, 36, 128],
                 color2: [41, 200, 192],
                 color3: [24, 137, 218],
-                fillOpacity: 0.8,
-                lineWidth: 1,
-                blend: "screen",
-                shift: 50,
+                fillOpacity: 0.97,
+                lineWidth: 0,
+                glow: 40,
+                blend: "lighten",
+                smoothing: 0.89,
+                minDecibels: -70,
+                amp: 1,
                 width: 60,
-                amp: 1.1,
+                shift: 50,
+                fft: 8,
+                scale: 0.2,
             },
             gui: null,
             context: null,
@@ -35,15 +35,15 @@ export default {
     },
     mounted() {
         this.ctx = this.$refs.canvas.getContext("2d");
-        this.gui = new dat.GUI();
+        this.gui = new dat.GUI({
+            useLocalStorage: true
+        });
         this.gui.close();
 
         // Connect GUI to opts (add your GUI settings here)
         this.gui.addColor(this.opts, "color1");
         this.gui.addColor(this.opts, "color2");
         this.gui.addColor(this.opts, "color3");
-        // ... add more GUI controls here ...
-
         this.start();
     },
     methods: {
