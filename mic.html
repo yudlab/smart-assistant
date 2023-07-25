@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Equalizer with Visualizer Example</title>
+  <style>
+    canvas {
+      display: block;
+      margin-top: 20px;
+      border: 1px solid black;
+    }
+  </style>
+</head>
+<body>
+  <audio id="audio" controls></audio>
+
+  <div>
+    <h3>Bass</h3>
+    <input type="range" id="bass-slider" min="-10" max="10" step="1" value="0">
+  </div>
+
+  <div>
+    <h3>Mid</h3>
+    <input type="range" id="mid-slider" min="-10" max="10" step="1" value="0">
+  </div>
+
+  <div>
+    <h3>Treble</h3>
+    <input type="range" id="treble-slider" min="-10" max="10" step="1" value="0">
+  </div>
+
+  <canvas id="visualizer" width="800" height="200"></canvas>
+
+  <script>
+    // Request microphone access
+    navigator.mediaDevices.getUserMedia({ audio: true })
+      .then(stream => {
+        const audioContext = new AudioContext();
+        const source = audioContext.createMediaStreamSource(stream);
+        const gainNode = audioContext.createGain();
+        const audioElement = document.getElementById('audio');
+        
+        // Connect microphone input to audio context
+        source.connect(gainNode);
+        gainNode.connect(audioContext.destination);
+        audioElement.srcObject = stream;
+        
+        // Create equalizer filters
+        const bassFilter = audioContext.createBiquadFilter();
+        const midFilter = audioContext.createBiquadFilter();
+        const trebleFilter = audioContext.createBiquadFilter();
+        
+        // Set up frequency ranges
+        bassFilter.type = 'lowshelf';
+        bassFilter.frequency.value = 250;
+        midFilter.type = 'peaking';
+        midFilter.frequency.value = 1000;
+        trebleFilter.type = 'highshelf';
+        trebleFilter.frequency.value = 4000;
+        
+        // Connect equalizer filters
+        gainNode.connect(bassFilter);
+        bassFilter.connect(midFilter);
+        midFilter.connect(trebleFilter);
+        trebleFilter.connect(audioContext.destination);
+        
+        // Update equalizer based on slider input
+        const bassSlider = document.getElementById('bass-slider');
+        const midSlider = document.getElementById('mid-slider');
+        const trebleSlider = document.getElementById('treble-slider');
+        
+        bassSlider.addEventListener('input', () => {
+          const gainValue = parseFloat(bassSlider.value);
+          bassFilter.gain.value = gainValue;
+        });
+        
+        midSlider.addEventListener('input', () => {
+          const gainValue = parseFloat(midSlider.value);
+          midFilter.gain.value = gainValue;
+        });
+        
+        trebleSlider.addEventListener('input', () => {
+          const gainValue = parseFloat(trebleSlider.value);
+          trebleFilter.gain.value = gainValue;
+        });
+        
+        // Visualizer
+        const visualizerCanvas = document.getElementById('visualizer');
+        const visualizerContext = visualizerCanvas.getContext('2d');
+        
+        // Analyser node for visualization
+        const analyser = audioContext.createAnalyser();
+        analyser.fftSize = 2048;
+        const bufferLength = analyser.frequencyBinCount;
+        const dataArray = new Uint8Array(bufferLength);
+        
+        // Connect analyser to audio context
+        gainNode.connect(analyser);
+        
+        // Visualizer animation loop
+        function drawVisualizer() {
+          requestAnimationFrame(drawVisualizer);
+          
+          // Get frequency data
+          analyser.getByteTimeDomainData(dataArray);
+          
+          // Clear canvas
+          visualizerContext.fillStyle = 'rgb(255, 255, 255)';
+          visualizerContext.fillRect(0, 0, visualizerCanvas.width, visualizerCanvas.height);
+          
+          // Draw visualizer waveform
+          visualizerContext.lineWidth = 1;
+          visualizerContext.strokeStyle = 'rgb(0, 0, 0)';
+          visualizerContext.beginPath();
+          const sliceWidth = visualizerCanvas.width * 1.0 / bufferLength;
+          let x = 0;
+          for (let i = 0; i < bufferLength; i++) {
+            const v = dataArray[i] / 128.0;
+            const y = v * visualizerCanvas.height / 2;
+            
+            if (i === 0) {
+              visualizerContext.moveTo(x, y);
+            } else {
+              visualizerContext.lineTo(x, y);
+            }
+            
+            x += sliceWidth;
+          }
+          visualizerContext.lineTo(visualizerCanvas.width, visualizerCanvas.height / 2);
+          visualizerContext.stroke();
+        }
+        
+        // Start visualizer animation loop
+        drawVisualizer();
+      })
+      .catch(error => {
+        console.error('Error accessing microphone:', error);
+      });
+  </script>
+</body>
+</html>
