@@ -16,6 +16,7 @@
     "@headlessui/vue": "^1.7.14",
     "@heroicons/vue": "^2.0.18",
     "@luxdamore/vue-cursor-fx": "^1.6.2",
+    "axios": "^1.4.0",
     "cors": "^2.8.5",
     "dat.gui": "^0.7.9",
     "dotenv": "^16.3.1",

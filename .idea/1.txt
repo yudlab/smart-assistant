@@ -8,3 +8,6 @@
 
 https://heroicons.com/
 https://tailwindui.com/components/preview
+
+-Todo:
+https://github.com/mozilla/DeepSpeech-examples/blob/r0.9/web_microphone_websocket/server.js

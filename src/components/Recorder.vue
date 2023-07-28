@@ -4,6 +4,7 @@
   
 <script>
 import dat from 'dat.gui';
+// Todo: - Add Mozilla Deepspeech support(Speech-to-text)
 
 export default {
     data() {

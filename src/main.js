@@ -14,3 +14,4 @@ app.use(CursorFx)
 
 
 app.mount('#app')
+console.clear();

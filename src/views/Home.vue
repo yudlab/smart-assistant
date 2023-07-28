@@ -19,6 +19,7 @@
   const textQuery = ref('')
   import imageUrl from '@/assets/img/bg.jpg';
   import Recorder from '@/components/Recorder.vue';
+  import axios from 'axios';
 
   const onSubmit = async (e) => {
     if(textQuery.value == "") {
@@ -31,22 +32,16 @@
         });
     }
   }
-
+  console.log(import.meta.env.VITE_BACKEND_URL);
   const sendQuery = async (data) => {
-  // Default options are marked with *
-  const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/query`, {
-    method: "POST", // *GET, POST, PUT, DELETE, etc.
-    mode: "no-cors", // no-cors, *cors, same-origin
-    cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
-    credentials: "same-origin", // include, *same-origin, omit
-    headers: {
-      "Content-Type": "application/json",
-      // 'Content-Type': 'application/x-www-form-urlencoded',
-    },
-    redirect: "follow", // manual, *follow, error
-    referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
-    body: JSON.stringify(data), // body data type must match "Content-Type" header
-  });
-  return response.json(); // parses JSON response into native JavaScript objects
-}
+    axios.post('http://localhost:3002/query', {
+      query: data
+    })
+    .then(function (response) {
+      console.log(response);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+  }
 </script>
